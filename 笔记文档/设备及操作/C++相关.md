@@ -72,6 +72,30 @@ it_per_frame直接指该成员   ，**引用**
 
 **.front()   .back()  返回当前容器的引用  **  .
 
+
+
+## 删除vector中指定元素——迭代器，erase( )后，指向下一个元素
+
+## 对于set，也可使用同样的操作，只是set在添加元素用的insert( )函数
+
+```
+ for(vector<int>::iterator iter = array.begin(); iter != array.end();)
+	 {
+	   if(*iter == 9)
+	     iter = array.erase(iter);
+	    else
+	      ++iter;
+	 }
+
+
+```
+
+
+
+
+
+
+
 ________________________
 
 
