@@ -474,7 +474,11 @@ void add(listnode **phead, int value)
 {
   if( *phead == nullptr ) ; //会运行出错    
       if((*phead)->value == value);  //->的优先级高于*, 所以必须要给(*phead)加括号
-   
+   if(*phead != nullptr )
+   {
+       if((*phead)->next == nullptr || (*phead)->value == 5 );
+       //只有在先判断该指针不为空的前提下，才可以去访问节点的成员
+   }
 }
 
 
@@ -483,4 +487,10 @@ void add(listnode **phead, int value)
 
 
 **根据value删除链表的一个节点时，要考虑到表头，表尾，还有 value并不存在于链表中这些特殊情况**——可以根据值，也可以根据指针去删除一个节点
+
+
+
+**在链表中，要让两个指针一前一后错开地往前遍历，则遍历前就要让这两个指针错开，然后往前遍历**
+
+**但凡通过指针访问链表的成员，都得考虑该指针是否为一个空指针**
 
