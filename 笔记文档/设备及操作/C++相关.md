@@ -78,11 +78,11 @@ it_per_frame直接指该成员   ，**引用**
 
 ## 对于set，也可使用同样的操作，只是set在添加元素用的insert( )函数
 
-```
+```c++
  for(vector<int>::iterator iter = array.begin(); iter != array.end();)
 	 {
 	   if(*iter == 9)
-	     iter = array.erase(iter);
+	     iter = array.erase(iter);  //删除后，返回下一个的指针
 	    else
 	      ++iter;
 	 }
@@ -376,6 +376,10 @@ ___
 
 使用STL库，在cmake文件中要添加**set(CMAKE_CXX_FLAGS "-std=c++11")**，表示引入c++11的特性
 
+### 通过迭代器遍历vector——方便删除其中的某一个元素
+
+
+
 ______
 
 ## 字符串
@@ -482,6 +486,8 @@ void add(listnode **phead, int value)
 }
 
 
+
+
 ```
 
 
@@ -493,4 +499,29 @@ void add(listnode **phead, int value)
 **在链表中，要让两个指针一前一后错开地往前遍历，则遍历前就要让这两个指针错开，然后往前遍历**
 
 **但凡通过指针访问链表的成员，都得考虑该指针是否为一个空指针**
+
+
+
+## 传入的参数为链表表头指针的函数——主要参考JZ18
+
+1. 首先判断表头是否为空，以及考虑是否仅有一个节点的情况
+2. 考虑要处理的情况在是否可能在表头
+3.  时刻留意，在所有的操作后，指针是否可能为空，一旦空掉，如何处理
+4. 遍历访问每个成员，首先判断指针是否为空
+5. 时刻留意，是否已经到了表尾
+
+
+
+_____
+
+## 函数名作为形参传入——传的是函数名的指针——提高代码的可扩展性
+
+```c++
+void function(int a, bool (*func)(int))
+{
+   int b = func(a);
+}
+```
+
+
 
