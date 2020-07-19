@@ -116,8 +116,13 @@ ___________
 + https://blog.csdn.net/okasy/article/details/90665534#t7  相机模型及畸变模型的总结
 + https://blog.csdn.net/u011475210/article/details/79185543?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task   有关鱼眼相机的矫正
 + https://mp.weixin.qq.com/s?__biz=MzIxOTczOTM4NA==&mid=2247488433&idx=1&sn=456487683cd56ffa7ac2ed622c652d9a&chksm=97d7f626a0a07f303abacf7ac5b135de8da4455c4f50927c2f5d0798b162d8909cbf076aaf73&token=1349743125&lang=zh_CN#rd  mei相机模型
++ https://blog.csdn.net/humanking7/article/details/45037239      畸变矫正图片的过程
 
 ## 摄像头畸变
+
+**在opencv2.0及其以前的版本，仅有针孔相机模型着一种———**
+
+**———OpenCV：cv: pinhole + Radtan   , cv::fisheye: pinhole + Equi ,  [cv::omnidir](http://man.hubwiz.com/docset/OpenCV.docset/Contents/Resources/Documents/dd/d12/tutorial_omnidir_calib_main.html): Omni + Radtan**
 
 distortion_model: radial-tangential     Radtan 模型即 radial-tangential 模型，包括径向畸变参数和切向畸变参多项式畸变模型，
 
@@ -163,13 +168,81 @@ k1,k2 径向畸变，，  P1，P2 切向畸变  ——-————Pinhole 模�
 
 + 相机的去畸变，，从图像像素坐标转至归一化平面坐标，然后去畸变，，在转回到图像坐标
 
-## mei相机模型
+## mei相机模型—— Omni + Radtan
 
 相机坐标系下的3d坐标点
 
 ![image-20200314212055487](/home/chenchen/.config/Typora/typora-user-images/image-20200314212055487.png)
 
 
+
+________________________
+
+https://docs.opencv.org/3.4.1/db/d58/group__calib3d__fisheye.html   **opencv中，有关fisheye(pinhole + equi )模型**
+
+https://docs.opencv.org/3.3.1/d3/ddc/group__ccalib.html#ga0d0b216ff9c9c2cee1ab9cc13cc20faa   **opencv中，有关MEI(omni + radtani )模型**
+
+------
+
+## 图像畸变矫正的解释
+
++ https://blog.csdn.net/humanking7/article/details/45037239      畸变矫正图片的过程
+
++ https://blog.csdn.net/guanguanboy/article/details/93976129?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase   图像畸变与去畸变
+
++ 相机内参矩阵，fx, fy, cx, cy 是相机的物理参数，归一化平面坐标到像素坐标的缩放与平移，与相机的焦距及一个放大倍数决定
+
++ 首先是畸变的产生过程
+
+  + (x, y, 1)~(u, v)  是没有畸变时的归一化平面坐标及像素坐标
+
+  + 根据14讲书上的原公式，相当于是从正常图像得到畸变后的图像，如果说畸变量是(dx, dy), 则在归一化平面上有了畸变的坐标为(x', y', 1) = (x+dx, y+dy, 1)——这是一个施加畸变的过程。对应的畸变后的图像坐标为(u', v')
+
+  + 根据(u, v)~(u', v')正向畸变产生的过程，通过该函数 cv::convertMaps(mapX, mapY, map1, map2, CV_32FC1, false)， 得到逆向的去畸变过程的映射图。
+
+  + 比如，根据畸变的施加过程，得到(1, 1)像素坐标，经过畸变以后在(2, 3)。则我们便将已有的已经产生了畸变图像中的(2, 3) 放到 (1, 1)处，得到去畸变以后的图像坐标
+
+  + remap函数，就是直接根据给定的map进行图像的重映射   
+
+    ```cpp
+    ptrX[j] =(float)(Cols - j);
+    			ptrY[j] = (float) i;
+    //这种就是图像左右翻转
+    ```
+
+    + 从畸变的像素位置得到去畸变后的像素位置是比较复杂的，这是一个逆向的过程，由于函数关系是单调的，一般采用迭代法，这样方便编程实现和计算机的计算
+
+
+
+
+
+**从畸变了的图像平面上，得到矫正后的相机系下归一化的平面坐标 ——undistortPoints()**
+
++ 直接使用内参矩阵，将图像平面的点(u, v)转到归一化平面(x, y)， 计算畸变量（dx, dy）, 则矫正以后的点坐标为（               (x-dx, y-dy）——减去，是去畸变（事实上，这是一种近似操作）——也可以时迭代逼近 Recursive distortion model
++ MEI相机模型——从图像平面到归一化平面，直接去畸变操作，无须再考虑折射那个过程
+
+```c++
+            x_dist = (it.x - cx()) / fx();
+            y_dist = (it.y - cy()) / fy();
+
+            x_corr = x_dist;
+            y_corr = y_dist;  //转到归一化平面
+            
+             r2 =x_corr*x_corr + y_corr*y_corr;
+                r4 = r2 * r2;
+
+                cdest_inv = 1 / (1.f + k1_*r2 + k2_*r4);
+                a1 = 2.f * x_corr * y_corr;
+                a2 = r2 + 2 * x_corr * x_corr;
+                a3 = r2 + 2 * y_corr * y_corr;
+
+                deltaX = p1_ * a1 + p2_ * a2;
+                deltaY = p1_ * a3 + p2_ * a1;  //计算畸变量
+
+                x_corr = (x_dist - deltaX) * cdest_inv; //去掉畸变量
+                y_corr = (y_dist - deltaY) * cdest_inv;
+        //按照正常，畸变量应该是由未畸变的vy计算得到的，但在这里，是使用畸变后的xy去计算畸变量
+```
 
 
 
@@ -189,14 +262,17 @@ ________
 
 ### 使用迭代器遍历Mat的每一个像素
 
-```
+```c++
 cv::Mat image;
+cv::Mat = cv::Mat::zeros(cv::Size(height, width), CV_32F);  //Mat的定义也是先行后列，同样，遍历访问的时候也是先行后列
 cv::Mat_<cv::Vec3b>::iterator it;
 for(it = image.begain<cv::Vec3b>(); it != image.end<cv::Vec3b>(); it++)
 {
 
 }
 ```
+
+
 
 
 
@@ -214,4 +290,10 @@ if(!mat.isContinuous())
   mat = mat.clone();
 }
 ```
+
+____________
+
+**cv::Size image_size(width_, height_);      image_size就是一个cv::Size 类型的数据**
+
+**cv::Size(width_, height_);**
 

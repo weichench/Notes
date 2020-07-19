@@ -138,7 +138,10 @@ kalibr_calibrate_cameras --bag /home/slam/kalibr_workspace/src/kalibr-master/con
 
 kalibr_calibrate_cameras --bag /home/slam/kalibr_workspace/src/kalibr-master/config/stereo_calibra.bag --topics /mynteye/left/image_raw /mynteye/right/image_raw --models pinhole-radtan pinhole-radtan --target /home/slam/kalibr_workspace/src/kalibr-master/config/april_6x6_80x80cm.yaml
 
+kalibr_calibrate_cameras --bag /home/slam/kalibr_workspace/src/kalibr-master/config/stereo_calibra.bag --topics /mynteye/left/image_raw /mynteye/right/image_raw --models pinhole-equi pinhole-equi --target /home/slam/kalibr_workspace/src/kalibr-master/config/april_6x6_80x80cm.yaml
 
+
+kalibr_calibrate_cameras --bag /home/slam/kalibr_workspace/src/kalibr-master/config/stereo_calibra.bag --topics /mynteye/left/image_raw /mynteye/right/image_raw --models omni-radtan omni-radtan --target /home/slam/kalibr_workspace/src/kalibr-master/config/april_6x6_80x80cm.yaml
 
 
 验证标定结果

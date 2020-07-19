@@ -463,6 +463,8 @@ __________
 
 ## 链表——动态扩展，不用闲置内存，空间效率高
 
+## 函数传入链表的头指针，务必先判断是否为空指针
+
 最尾的节点指针指向nullptr，用于找到表尾
 
 **链表的表头本身就是一个指针，如果实参传递操作这个指针本身，则需要指向指针的指针 ****phead., 在函数内，其本身为*phead   。否则，只是传入形参 *phead, 则相当与在函数内部复制了一个指针，除了函数，啥都没有**
@@ -525,3 +527,40 @@ void function(int a, bool (*func)(int))
 
 
 
+____________
+
+可以在头文件的函数声明中，对形参赋予默认的参数
+
+```c++
+//在头文件中的声明
+cv::Mat initUndistortRectifyMap(cv::Mat& map1, cv::Mat& map2,
+                                    float fx = -1.0f, float fy = -1.0f,
+                                    cv::Size imageSize = cv::Size(0, 0),
+                                    float cx = -1.0f, float cy = -1.0f,
+                                    cv::Mat rmat = cv::Mat::eye(3, 3, CV_32F)) const;
+
+//在.cpp文件中的具体定义
+cv::Mat
+PinholeCamera::initUndistortRectifyMap(cv::Mat& map1, cv::Mat& map2,
+                                       float fx, float fy,
+                                       cv::Size imageSize,
+                                       float cx, float cy,
+                                       cv::Mat rmat) const
+{
+    
+}
+
+
+camera->initUndistortRectifyMap(map1,map2);  //调用时，有默认参数的形参可以不出现
+
+```
+
+_______
+
+**θ = atan(y / x)求出的θ取值范围是[-PI/2, PI/2]。**
+
+**θ = atan2(y, x)求出的θ取值范围是[-PI, PI]。**
+
+_________
+
+**cmake 可执行的程序名称不能为test**

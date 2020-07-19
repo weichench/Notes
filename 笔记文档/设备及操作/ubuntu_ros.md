@@ -15,6 +15,8 @@ rosbag record -O structural_line.bag /linefeature_tracker/linefeature_1  /linefe
 
 rosbag record -O structural_line_540_end_3.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
 
+
+tar -xvf  解压tar文件
 ```
 
 ## 有关launch文件
