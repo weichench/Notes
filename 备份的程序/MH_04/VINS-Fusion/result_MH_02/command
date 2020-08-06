@@ -1,0 +1,12 @@
+evo_ape tum /home/chenchen/Dataset/MH_02_easy/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_02/vio_1.tum -as  -va --plot          直接跳过开头的   rmse	0.237874
+
+evo_ape tum /home/chenchen/Dataset/MH_02_easy/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_02/vio_2.tum -as  -va --plot      从起始开始，不使用线
+
+evo_ape tum /home/slam/Dataset/MH_02_easy/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_02/vio_3.tum -as  -va --plot      900以后，再加入线特征，         rmse	  0.152530
+
+
+
+evo_ape tum /home/slam/Dataset/MH_02_easy/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_02/vio_4.tum -as  -va --plot      基于3，不固定Rws                rmse	0.155765
+ 
+
+evo_ape tum /home/slam/Dataset/MH_02_easy/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_02/vio_5.tum -as  -va --plot           if_use_line 900以后加入线 稳定后固定Rws   rmse	0.152530

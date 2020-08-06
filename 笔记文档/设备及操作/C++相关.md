@@ -94,6 +94,10 @@ vector<int>(numLines, 0);      //初始化数组的长度及初值
 
 
 
+**对于数组vector，使用push_back( ), pop_back( ) 可实现像栈一样的操作，还可以得到栈底元素**
+
+
+
 
 
 ________________________
@@ -308,6 +312,23 @@ _______
 
 ## nullptr 空指针
 
+```c++
+int *p = new int;
+ 
+//使用后
+delete p;
+p = nullptr;    //释放动态内存空间后，应该让指针为空，否则可能会访问不存在的内存空间
+p = new int[n];
+delete [] p;
+p = nullptr;
+
+int a[10] = 0;
+//则 a+1  等价于 &a[1];  
+//a是常量指针，但可以作用整个数组范围   a+1 实际上就是 a+1×sizeof(int)  
+```
+
+
+
 ______
 
 ## 动态大小的矩阵      ,运行时确定大小
@@ -354,9 +375,63 @@ ________________
 
 
 
-## 复制构造函数
+## 复制构造函数——构造函数的参数就是该类型的一个类
 
-##  复制，即clone出一个新的————赋值，对一个已经存在的进行赋值，也所以，在赋值时，要释放掉其本已指向的动态内存空间（delete以后，随即让该指针变量 = nullptr）
+##  复制，即clone出一个新的———
+
+##  —赋值，对一个已经存在的进行赋值，也所以，在赋值时，要释放掉其本已指向的动态内存空间（delete以后，随即让该指针变量 = nullptr）
+
+
+
+```c++
+class Node {
+    int age;
+    char *name;
+    Node(int b = 0, char *n = " ")  //构造函数有默认参数    
+    {
+        age = b;
+        name = strdup(n);  //malloc一块内存空间，name指向该空间  ，是在堆内存中的，new也也是堆内存，自由存储区）
+        //在C++中，分配内存空间都是在动态内存空间中的，都是用的new与delete
+        //mallco 是C语言中的
+                        
+    }
+    Node()  //也或许，构造函数里边啥都没有
+    {};     
+    Node(const Node &node) //定义复制构造函数    const跟最近的结合，传入的参数，在函数内不可以被更改
+    {
+       name = strdup(node.name); //复制的就是指针的内容，不是指针本身了
+        age = node.age;//引用，的用法跟变量时一样的，换个名字而已
+    }
+    Node& operator= (const Node& node){  //记住这个格式
+        if(this == n)  //这个判断是必要的
+            return *this;
+         if(name != nullptr)
+             delete [] name;  //先得释放其之前的内存空间
+        name = nullptr;
+        name = strdup(n.name);   
+        age = n.age;
+        return *this;
+   }
+    
+    ~Node(){   //析构函数，释放动态内存空间
+        //析构函数，在delete该对象时，会自动调用
+        if(name != nullptr)
+            delete [] name;
+    }
+    
+    
+};
+ 
+Node node0; //这样构造方式也可
+Node node1();   //构造函数  
+Node node2(node1); //复制构造函数  如果没有定义复制构造函数，则自动生成，直接复制类的成员
+//但是，直接复制指针，意味着，两个类的成员指针会指向同一个地方，任何一个修改内容的话，另一个也会同样发生变化
+node1 = node2;  //直接赋值，同样也会出现上述的问题，所以需要重载赋值操作符，
+//赋值的前提是，这两个类已经存在了，  
+//可以将赋值操作符理解为 node.=(node2);   =就是函数名，node2就是传入的参数;
+```
+
+
 
 
 
@@ -467,7 +542,52 @@ __________
 
 最尾的节点指针指向nullptr，用于找到表尾
 
+
+
+
+
+## 对于指针，一定注意形参传递与实参传递的差异——NKJZ_25
+
 **链表的表头本身就是一个指针，如果实参传递操作这个指针本身，则需要指向指针的指针 ****phead., 在函数内，其本身为*phead   。否则，只是传入形参 *phead, 则相当与在函数内部复制了一个指针，除了函数，啥都没有**
+
+```c++
+//定义的第一种复制函数——指针形参
+void copy_functoin(listNode* node_0, listNode* node_1)
+{}
+//定义的第二种复制函数——指针实参
+void copy_function_2(listNode* pHead, listNode** pHead_copy)
+{
+    *pHead_copy = new node(pHead->value);
+    listNode *node = *pHead_copy;
+}
+
+
+
+//pHead 是已经存在的一个链表的头指针,现在复制它
+listNode *pHead_copy;
+//一种做法是，先把头指针处理好，生成表头
+ pHead_copy = new node(pHead->value);//先生成表头
+copy_function(pHead, pHead_copy);//传入的是指针的形参
+
+
+//通过实参传递直接生成
+copy_function_2(pHead, &pHead_copy); //传入指针本身的地址，实参传递
+
+
+
+
+listNode* node0 = pHead;
+listNode* node1 = pHead_copy;
+
+
+
+
+
+```
+
+
+
+
 
 **当链表的表头可能会被改动时，就应该实参传递，传递表头的地址**
 
@@ -583,4 +703,8 @@ function(a, p);
 **指针只能指向基本的类型，比如int*,   或者一个结构体的指针， 或者一个类的指针**
 
 **但引用可以是任何数据类型，比如vector，map，pair，任何数据结构都可以（但没见过对一个类的引用），所以通常在函数传递实参的时候，数据（数据结构，容器）使用引用传递，类使用指针**
+
+_______
+
+## set, multiset 的区别是是否允许存在重复值，其都会进行排序，，默认从小到大 
 

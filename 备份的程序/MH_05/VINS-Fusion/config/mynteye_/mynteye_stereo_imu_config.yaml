@@ -1,0 +1,69 @@
+%YAML:1.0
+
+#common parameters
+#support: 1 imu 1 cam; 1 imu 2 cam: 2 cam; 
+imu: 1         
+num_of_cam: 2  
+
+imu_topic: "/mynteye/imu/data_raw"
+image0_topic: "/mynteye/left_rect/image_raw"
+image1_topic: "/mynteye/right_rect/image_raw"
+output_path: "/home/slam/catkin_ws/src/VINS-Fusion/"
+
+cam0_calib: "left_mei.yaml"
+cam1_calib: "right_mei.yaml"
+image_width: 752
+image_height: 480
+   
+
+# Extrinsic parameter between IMU and Camera.
+estimate_extrinsic: 0   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
+                        # 1  Have an initial guess about extrinsic parameters. We will optimize around your initial guess.
+
+body_T_cam0: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: d
+   data: [ -0.002889190643860118, 0.999715880093569, -0.023660339519232132, 0.061290357491195636,
+       -0.9999085915393726, -0.003200647075847829, -0.013136377889105384, 0.017801302979544464,
+       -0.013208373979144476, 0.023620223263927327, 0.9996337448834902, -0.01902963746229133, 0., 0., 0., 1. ]
+
+body_T_cam1: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: d
+   data: [ -0.003858000456623989, 0.9997905085664528, -0.020101114718108333, -0.058914688893367456,
+       -0.9999198124230321, -0.00409939752909283, -0.011981805531185224, 0.017944083516650725,
+       -0.012061697905575437, 0.020053277047214234, 0.9997261532656344, -0.018705887836070093, 0., 0., 0., 1. ]
+
+#Multiple thread support
+multiple_thread: 1
+
+#feature traker paprameters
+max_cnt: 150            # max feature number in feature tracking
+min_dist: 30            # min distance between two features 
+freq: 10               # frequence (Hz) of publish tracking result. At least 10Hz for good estimation. If set 0, the frequence will be same as raw image 
+F_threshold: 1.0        # ransac threshold (pixel)
+show_track: 1           # publish tracking image as topic
+flow_back: 1            # perform forward and backward optical flow to improve feature tracking accuracy
+
+#optimization parameters
+max_solver_time: 0.04  # max solver itration time (ms), to guarantee real time
+max_num_iterations: 8   # max solver itrations, to guarantee real time
+keyframe_parallax: 10.0 # keyframe selection threshold (pixel)
+
+#imu parameters       The more accurate parameters you provide, the better performance
+acc_n: 0.00072019          # accelerometer measurement noise standard deviation. #0.2   0.04
+gyr_n: 0.00005682         # gyroscope measurement noise standard deviation.     #0.05  0.004
+acc_w:  0.00006862        # accelerometer bias random work noise standard deviation.  #0.02
+gyr_w:  0.00000559       # gyroscope bias random work noise standard deviation.     #4.0e-5
+g_norm: 9.81         # gravity magnitude
+
+#unsynchronization parameters
+estimate_td: 0                      # online estimate time offset between camera and imu
+td: 0.007001672294339093                             # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
+
+#loop closure parameters
+load_previous_pose_graph: 0        # load and reuse previous pose graph; load from 'pose_graph_save_path'
+pose_graph_save_path: "/home/slam/catkin_ws/src/VINS-Fusion/" # save and load path
+save_image: 1                   # save image in pose graph for visualization prupose; you can close this function by setting 0 

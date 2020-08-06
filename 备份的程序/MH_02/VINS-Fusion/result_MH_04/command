@@ -1,0 +1,40 @@
+继承：表示拥有前者的所有特征
+
+evo_ape tum /home/chenchen/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_1.tum -as  -va --plot       外点剔除点线距离为20， const int LINE_MIN_OBS = 4  ,联合优化不剔除外点   remse 0.215
+
+evo_ape tum /home/chenchen/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_18.tum -as  -va --plot      从17改回来的，跳过开头，从149直接开始     rmse	0.198123
+
+
+
+evo_ape tum /home/chenchen/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_2.tum -as  -va --plot       继承1，不固定Rws，一直作为优化变量           rmse	0.225270
+
+
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_3.tum -as  -va --plot        初始阶段不添加线, 不固定Rws   rmse	0.239801
+
+
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_4.tum -as  -va --plot        3的程序，在台式机上得到的结果             rmse	0.231510
+
+
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_5.tum -as  -va --plot         基于4,等到Rws稳定后， 固定Rws           rmse	0.288445
+
+
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_6.tum -as  -va --plot        台式机跑的结果          147 后加入线 if_use_line   稳定后，固定Rws          rmse	0.267661
+
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_7.tum -as  -va --plot                  158  后加入线 if_use_line   稳定后，固定Rws      rmse	0.315397
+
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_8.tum -as  -va --plot         130 后加入线 if_use_line   稳定后，固定Rws   rmse	0.497743
+
+
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_9.tum -as  -va --plot         130 后加入线 if_use_line   不固定Rws        rmse	0.249158
+
+
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_11.tum -as  -va --plot        if_use_line  155后加入线  稳定后，固定Rws       rmse	0.263606
+
+
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_12.tum -as  -va --plot         if_use_line  155后加入线    不固定Rws         rmse	0.239709
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_13.tum -as  -va --plot       继承12，  修改线特征的协方差为1个像素            rmse	0.245750    
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_14.tum -as  -va --plot       继承12   线特征的协方差为2.5 个像素                rmse	0.239927
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_15.tum -as  -va --plot      继承12 动态调整线特征的权重                        rmse	0.236520
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_16.tum -as  -va --plot       继承15,关闭点特征提取时的直方图均衡化              rmse	0.210546
+evo_ape tum /home/slam/Dataset/MH_04_difficult/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_04/vio_17.tum -as  -va --plot       继承16, 在矫正后的图像上提取点特征                   rmse	0.262236      
+

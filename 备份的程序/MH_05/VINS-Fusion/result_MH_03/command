@@ -1,0 +1,9 @@
+evo_ape tum /home/chenchen/Dataset/MH_03_medium/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_03/vio_1.tum -as  -va --plot        rmse	0.102620
+
+
+
+
+evo_ape tum /home/slam/Dataset/MH_03_medium/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_03/vio_2.tum -as  -va --plot               if_use_line  从数据集最开始     rmse	0.139584
+
+evo_ape tum /home/slam/Dataset/MH_03_medium/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_03/vio_3.tum -as  -va --plot              继承2, Rws稳定后，固定Rws            rmse	0.284753
+

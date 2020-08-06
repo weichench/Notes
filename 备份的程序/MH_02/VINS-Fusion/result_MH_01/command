@@ -1,0 +1,12 @@
+evo_ape tum /home/slam/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/vio.tum -as  -va --plot  
+
+evo_ape tum /home/slam/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_01/vio_1.tum -as  -va --plot              if_use_line  跑全程，不固定Rws      rmse	0.166481
+
+
+evo_ape tum /home/slam/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_01/vio_2.tum -as  -va --plot                    if_use_line  跑全程，稳定后 固定Rws      rmse	0.114801
+
+ 
+
+evo_ape tum /home/slam/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum ~/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_01/vio_28_48.tum -as  -va --plot       20s的一小段
+
+ 

@@ -1,0 +1,3 @@
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_48_68/vio_48_68.tum -as -r angle_deg  -v --plot 
+
+
