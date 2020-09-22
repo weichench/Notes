@@ -11,9 +11,9 @@ rosbag record -O stereo_calibra.bag /left /right
 rosbag play /home/slam/data_set/V1_02_medium.bag 
 
 
-rosbag record -O structural_line.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
+rosbag record -O structural_line_12.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
 
-rosbag record -O structural_line_153_end.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
+rosbag record -O structural_line_786_end.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
 
 
 tar -xvf  解压tar文件

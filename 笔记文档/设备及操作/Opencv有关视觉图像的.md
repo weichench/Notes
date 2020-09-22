@@ -124,7 +124,7 @@ ___________
 
 **———OpenCV：cv: pinhole + Radtan   , cv::fisheye: pinhole + Equi ,  [cv::omnidir](http://man.hubwiz.com/docset/OpenCV.docset/Contents/Resources/Documents/dd/d12/tutorial_omnidir_calib_main.html): Omni + Radtan**
 
-distortion_model: radial-tangential     Radtan 模型即 radial-tangential 模型，包括径向畸变参数和切向畸变参多项式畸变模型，
+distortion_model: radial-tangential     Radtan 模型即 radial-tangential 模型，包括径向畸变参数和切向畸变参多项式畸变模型
 
 k1,k2 径向畸变，，  P1，P2 切向畸变  ——-————Pinhole 模型与MEI模型相机的畸变参数不同
 
