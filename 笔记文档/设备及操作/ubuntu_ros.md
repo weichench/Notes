@@ -13,7 +13,7 @@ rosbag play /home/slam/data_set/V1_02_medium.bag
 
 rosbag record -O structural_line_12.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
 
-rosbag record -O structural_line_786_end.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
+rosbag record -O structural_line9_544_end.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
 
 
 tar -xvf  解压tar文件
@@ -136,6 +136,8 @@ sudo apt-get install python2.7-igraph
 ##### 查看cpu温度
 
 psensor
+
+cat /proc/cpuinfo |grep MHz|uniq
 
 _________
 
