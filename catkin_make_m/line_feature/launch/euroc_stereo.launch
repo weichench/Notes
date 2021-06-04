@@ -1,0 +1,31 @@
+<launch>
+    <arg name="config_path" default = "$(find feature_tracker)/../config/euroc/euroc_config_fix_extrinsic.yaml" />
+	  <arg name="vins_path" default = "$(find feature_tracker)/../config/../" />
+
+   <arg name="point_detect_config_path" default = "$(find feature_detect)/../config/euroc/euroc_stereo_imu_config.yaml" />
+
+
+	
+
+    <node name="plvio_estimator" pkg="plvio_estimator" type="plvio_estimator" output="screen">
+       <param name="config_file" type="string" value="$(arg config_path)" />
+       <param name="vins_folder" type="string" value="$(arg vins_path)" />
+    </node>
+ 
+
+<node name="linefeature_tracker" pkg="feature_tracker" type="LineFeature_tracker" output="screen"  launch-prefix="xterm -e gdb -ex run --args " >
+        <param name="config_file" type="string" value="$(arg config_path)" />
+        <param name="vins_folder" type="string" value="$(arg vins_path)" />
+    </node>   
+
+
+   <node name="feature_detect" pkg="feature_detect" type="detect_node" output="screen"  launch-prefix="xterm -e gdb -ex run --args ">
+        <param name="config_file" type="string" value="$(arg point_detect_config_path)" />
+      
+    </node>
+
+     
+
+
+
+</launch>

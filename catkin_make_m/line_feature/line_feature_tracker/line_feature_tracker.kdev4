@@ -1,0 +1,3 @@
+[Project]
+Manager=KDevCMakeManager
+Name=line_feature_tracker

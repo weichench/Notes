@@ -1,0 +1,22 @@
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_28_68/vio_28_48.tum -as -r full -va --plot --save_results results/ORB.zip
+
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_28_68/vio_28_68.tum -as -r angle_deg -va --plot --save_results results/ORB.zip
+
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_28_68/vio_28_68.tum -as -va --plot
+
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_28_68/vio_28_148_optRws.tum -as -r angle_deg -va --plot
+
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_28_68/vio_28_148_46.1.tum -as  -va --plot
+
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_28_68/vio_28_148_46.1.tum -as -r angle_deg -va --plot
+
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_28_68/vio_28_148_46.1.tum -as -r angle_deg -va --plot
+
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_28_68/vio_28_end_wait_stable_Rws.tum -as  -va --plot
+
+
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_28_68/vio_28_end_wait_stable_Rws_1.tum -as  -va --plot    ——————————滑窗等待稳定的Rws，仅在联合优化中剔除外点
+
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_28_68/vio_28_68_optRws.tum -as -va --plot --save_results results/ORB.zip
+
+evo_ape tum /home/chenchen/Dataset/MH_01_easy/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_28_68/vio_48_68.tum -as -va --plot --save_results results/ORB.zip

@@ -1,0 +1,12 @@
+evo_ape tum /home/slam/Dataset/MH_05_difficult/mav0/state_groundtruth_estimate0/data.tum  /home/slam/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_05/vio_1.tum -as  -va --plot      始终不固定Rws   0.229724
+
+evo_ape tum /home/slam/Dataset/MH_05_difficult/mav0/state_groundtruth_estimate0/data.tum  /home/slam/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_05/vio_5.tum -as  -va --plot    从if_use_line 改回到原来的状态，从545直接开始加入线特征，相比于1,去掉了直方图均衡化，加入了动态调整线的权重
+
+evo_ape tum /home/slam/Dataset/MH_05_difficult/mav0/state_groundtruth_estimate0/data.tum  /home/slam/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_05/vio_4.tum -as  -va --plot      直接从545开始，稳定后固定Rws      rmse	0.420311
+
+
+evo_ape tum /home/chenchen/Dataset/MH_05_difficult/mav0/state_groundtruth_estimate0/data.tum  /home/chenchen/catkin_ws_4/src/git_project/VINS-Fusion/result_MH_05/vio_2.tum -as  -va --plot      从头开始，到545以后，再使用线特征   rmse	0.210849
+
+
+
+

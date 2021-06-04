@@ -1,0 +1,72 @@
+init                       初始提交，源程序
+line filter LBD            对筛选过后的线特征进行LBD提取
+stereo line thread         多线程实现双目线特征数据发送，暂未发现问题  （考虑特征的合并）
+before vanishing point     准备融合进消失点前
+combine vanishing point    将消失点的检测已放入主程序，但消失点检测依赖　Canny-hough h变换检测线特征，错误率较大
+get structural line        提取到了结构化直线
+publish structural line    将结构线按照方向分组发送，三个publish以不同的话题分别发送出去
+data sync                  结构线的发送与vins估计节点的图片，进行了数据的对齐，但仅用点特征进行的估计，可能出了问题，，imu与图片的播放速率为0.3倍
+data sync_1                基于上一版本，修改了一部分，运行结果出问题，，
+data sync_2                将vins的原文件复制进去，又将之前的修改的主程序文件，estimator文件用之前的代替，处理线特征时，出错　　　package 为pl_vins
+data sync finished         数据对齐完成，可正常运行　　　gdb影响了多线程的    debug模式
+from rosbag                修改为所有消息都从rosbag读取，关闭了多线程
+processing line triangulate_1    正在处理线的三角化
+repair line_feature_track   纠正了线特征提取的一些问题（结构线的分类的问题，check）
+finish line triangulate     初步完成的线特征的三角化
+slide window                完成线特征的滑窗（主要是相关状态量的修改）
+add some explain           添加了一些注释（有关imu位资的初始化及cameramodel）  ，接下来准备改一下相机模型
+add pinhole stereo         使用双目参数，构建针孔相机模型（mei模型还是得不到正确的去畸变图像）
+finish structural line model 完成了结构化线的参数化模型
+onlylineopt                添加了线的优化，并显示了线优化后的对比
+structural line reprojetion 检查结构线的重投影误差
+onlyStructuralLineOpt      完成了结构线的优化
+optWithStructuralLine      添加了联合结构线优化函数
+optWithStructuralLine_1    添加了marge部分
+finish marge               基本完成了marge部分
+slidewindow_repair         完善了滑窗，线特征状态量的修改，三角化结果的转换
+slidewindow_repair_1       滑窗时，帧间三角化的转换可能出错，修改了一些，但窗口内各帧的Rws还是会出问题
+check strctural world      主要是检查窗口内的Rws，解决帧内Rws出错的情况
+first finish processing    首次运行出结果，但误差有点大，    rmse	0.047572
+removeLineOutlier          解决marge线的重复发送问题，结构线的外点拒绝
+optimaize line match       提高了LBD匹配的阈值，提高了匹配率，使用点线距离剔除误匹配  0.042
+reverse match to check     正反两次匹配，解决同一帧出现相同ID，或者误匹配的情况，同时用直线的端点距离与中点距离筛选误匹配
+merge line                 合并线特征     rmse	0.034113
+send only optimized line   仅向RVIZ发送进入优化框架的线，少了很多杂乱的线  
+try something              尝试了建立单帧的观测的残差函数，也尝试了在边缘化时，将不是在0帧上三角化的线转到0帧  但效果都很不好
+
+
+
+## 以下为第二种方案
+Rws triangulate          基于世界系下唯一的S系，完成结构线的参数化，检测了重投影误差，消失点的观测误差，调整了Rcs的朝向与Rws保持一致
+onlyStructuralLineOpt    仅优化线，点线联合优化似乎有问题？
+finish process           跑通流程，但效果很差，ceres可多线程加速
+reseach Rws              可视化了Rws对重投影的影响，研究Rws在优化中的表现。。。问题仍然很大
+Rmse0.027                暂时得到一个较满意的结果
+test someting            主要做了一些测试，发现单独测两段位姿，效果好于vins，但合起来，效果反倒差一点点，同时，注意到平移，旋转的误差都应考虑
+test_5_10                5月10号做的一些测试，主要发现，固定一个统一的Rws，相较于不断优化Rws，具有较好的全局一致性
+wait stable Rws          初始时刻先不固定Rws，等到其稳定以后，再固定  28_end   rmse  0.141712
+improve                  滑窗等待稳定的Rws，仅在联合优化中剔除外点   rmse	0.130418
+MH_03                    vps提取的数量突然又出现2个的情况，解决了该问题， 
+                          外点剔除点线距离为20， const int LINE_MIN_OBS = 4  ,联合优化不剔除外点      MH_03   rmse 0.102620  
+if_use_line              一定时间以后，再加入线特征     
+if_use_line_test_all     测试了所有的数据集  
+if_use_line_improve      动态调整线特征的权重，去掉了点特征提取时的直方图均衡化， 使得MH_04      rmse	0.210546
+line_on_point            得到了图像中，在线上的点
+return use line immediately   修改回从头直接开始使用线特征，但保留了if_use_line 的选项，相较于最开始，去掉了直方图均衡化，添加了动态调整线特征的权重，MH_04,05数据集测试的效果都好于之前的
+
+
+##在此以后修改为mynteye相机的
+init                   线特征提取环节已经修改为小觅的，
+_12_04                 提交论文时写的程序-主要是一些显示
+To_display             视频展示的程序
+on_car                 小车上采集数据的测试
+
+
+
+
+
+
+
+
+                
+
