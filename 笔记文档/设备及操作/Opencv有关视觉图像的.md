@@ -260,6 +260,8 @@ ________
 + unchar  *data = image.ptr<unchar>(3)[4]   表示访问的是3行的4个元素
 + unchar  *data = image.ptr<unchar>(3)       指向的是3行的首个元素
 
+### 使用前必须先初始化大小
+
 ### 使用迭代器遍历Mat的每一个像素
 
 ```c++

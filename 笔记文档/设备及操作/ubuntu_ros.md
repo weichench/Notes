@@ -13,8 +13,14 @@ rosbag play /home/slam/data_set/V1_02_medium.bag
 
 rosbag record -O structural_line_12.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
 
-rosbag record -O structural_line9_544_end.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
+rosbag record -O structural_line_data2.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
 
+
+
+rosbag record -O structural_line_white_car.bag /linefeature_tracker/linefeature_1  /linefeature_tracker/linefeature_2  /linefeature_tracker/linefeature_3
+
+
+rosbag record -O line1.bag /linefeature_tracker/linefeature_1  
 
 tar -xvf  解压tar文件
 ```
@@ -41,7 +47,8 @@ slam@slam-Default-string:~/kalibr_workspace$ echo "source  ～/kalibr_workspace/
 slam@slam-Default-string:~$ gedit .bashrc
 
 source ~/.bashrc    更新指令
-
+  当前终端有效
+   source ~/catkin_ws_m/devel/setup.bash
 
 ROS的空间可以建立多个，只需要将环境变量添加即可：     
 echo "source /home/slam/catkin_ws_1/devel/setup.bash">>~/.bashrc 
